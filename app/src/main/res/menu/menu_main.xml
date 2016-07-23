@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MainActivity">
+
+<!--创建了两个菜单项，收藏与设置-->
+    <item android:id="@+id/menu_news_like"
+        android:icon="@drawable/favorite"
+        android:title="@string/action_star"
+        android:showAsAction="never"
+        tools:ignore="AppCompatResource" />
+
+    <item
+            android:id="@+id/menu_refresh"
+            android:showAsAction="never"
+            android:title="@string/menu_refresh"
+            android:icon="@drawable/refresh"
+            tools:ignore="AppCompatResource" />
+
+    <item android:id="@+id/menu_setting"
+        android:icon="@drawable/setting"
+        android:title="@string/action_setting"
+        android:showAsAction="never"
+        tools:ignore="AppCompatResource" />
+
+</menu>
