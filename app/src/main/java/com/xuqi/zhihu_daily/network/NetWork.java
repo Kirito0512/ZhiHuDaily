@@ -14,9 +14,10 @@ import android.widget.Toast;
  */
 public class NetWork {
     private static final String TAG = "NetWork";
-    public static boolean flag = false;
+    public static boolean flag;
    // public boolean flag = false;
     public static boolean isOpenNetwork(Context context) {
+        flag = false;
         ConnectivityManager connManager = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connManager.getActiveNetworkInfo();
 
@@ -36,17 +37,12 @@ public class NetWork {
                 return true;
             }
         }
-        //无网络
-        else {
-            Log.d(TAG, "无网络~");
-            flag = setNetWork(context);
-            return flag;
-        }
-        return true;
+        return flag;
     }
 
     //无网络时，询问用户是否打开网络连接
     public static boolean setNetWork(final Context context){
+        flag = false;
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
         builder.setMessage("网络设置提示");
         builder.setTitle("网络连接不可用,是否进行设置?");
@@ -62,6 +58,7 @@ public class NetWork {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
+                promoteDisconneted(context);
             }
         }).show();
         return flag;

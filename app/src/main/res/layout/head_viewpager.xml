@@ -4,10 +4,9 @@
     android:layout_height="100dp"
     android:orientation="vertical" >
 
-    <!--用于主界面顶部的图片轮播-->
     <android.support.v4.view.ViewPager
         android:id="@+id/headviewpager"
         android:layout_width="match_parent"
-        android:layout_height="220dp"
+        android:layout_height="250dp"
         />
 </LinearLayout>

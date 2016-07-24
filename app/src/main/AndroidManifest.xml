@@ -21,10 +21,21 @@
             </intent-filter>
         </activity>
 
-        <!--为该活动加入了返回功能-->
+        <!-- 为该活动加入了返回功能 -->
         <activity
             android:name=".activity.NewsContentActivity"
             android:label="@string/main_page"
+            android:parentActivityName=".activity.MainActivity"
+            tools:ignore="DuplicateActivity">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.MainActivity" />
+        </activity>
+        <activity
+            android:name=".activity.NewsFavoriteActivity"
+            android:label="@string/collection_page"
             android:parentActivityName=".activity.MainActivity"
             tools:ignore="DuplicateActivity">
             <!-- Parent activity meta-data to support 4.0 and lower -->
