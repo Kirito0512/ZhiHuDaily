@@ -19,7 +19,11 @@ public class NewsDatabaseOperation {
     private SQLiteDatabase db ;
     private NewsListAdapter adapter;
     private Context context;
+    //全局变量,这样就不用在使用该类的函数时，反复创建该类的对象了（结合Instance方法）
+    public static NewsDatabaseOperation dbOperation;
     private static final String TAG = "NewsDatabaseOperation";
+
+
 
     public NewsDatabaseOperation(Context context){
         this.context = context;
@@ -27,11 +31,18 @@ public class NewsDatabaseOperation {
         db = dbHelper.getWritableDatabase();
     }
 
-    public NewsDatabaseOperation(Context context,NewsListAdapter adapter){
-        this.context = context;
-        this.adapter = adapter;
-            dbHelper = new NewsDatabaseHelper(context,"Colletion_News.db",null,1);
-            db = dbHelper.getWritableDatabase();
+//    public NewsDatabaseOperation(Context context,NewsListAdapter adapter){
+//        this.context = context;
+//        this.adapter = adapter;
+//        dbHelper = new NewsDatabaseHelper(context,"Colletion_News.db",null,1);
+//        db = dbHelper.getWritableDatabase();
+//    }
+
+    public synchronized static NewsDatabaseOperation getInstance(Context context) {
+        if (dbOperation == null) {
+            dbOperation = new NewsDatabaseOperation(context);
+        }
+        return dbOperation;
     }
 
     public void collect_News(News news){
@@ -52,7 +63,8 @@ public class NewsDatabaseOperation {
         return cursor.moveToNext();
     }
 
-    public NewsListAdapter open_News_Favorites(){
+    public NewsListAdapter open_News_Favorites(NewsListAdapter adapter){
+        //this.adapter = adapter;
         List<News> newsList = new ArrayList<News>();
         Cursor cursor = db.query("table_fav_news",null,null,null,null,null,null);
         if(cursor.moveToFirst()){

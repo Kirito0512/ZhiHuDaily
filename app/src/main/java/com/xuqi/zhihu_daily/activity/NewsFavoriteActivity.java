@@ -27,8 +27,8 @@ public class NewsFavoriteActivity extends Activity implements AdapterView.OnItem
         adapter = new NewsListAdapter(this,R.layout.news_item);
         list.setAdapter(adapter);
         list.setOnItemClickListener(this);
-        db = new NewsDatabaseOperation(this,adapter);
-        adapter = db.open_News_Favorites();
+        db = NewsDatabaseOperation.getInstance(this);
+        adapter = db.open_News_Favorites(adapter);
     }
 
     @Override

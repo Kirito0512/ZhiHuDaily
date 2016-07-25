@@ -28,7 +28,7 @@ public class NewsContentActivity extends Activity {
         // 给左上角图标的左边加上一个返回的图标
         actionBar = getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-        db = new NewsDatabaseOperation(this);
+        db = NewsDatabaseOperation.getInstance(this);
 
         webView = (WebView) findViewById(R.id.webview);
         setWebView(webView);

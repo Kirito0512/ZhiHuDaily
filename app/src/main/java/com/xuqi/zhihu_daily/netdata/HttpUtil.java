@@ -30,38 +30,37 @@ public class HttpUtil {
         return sendHttpRequest(NEWSDETAIL + id);
     }
 
-    public static String sendHttpRequest(String address) {
-        HttpURLConnection connection = null;
-        try {
-            URL url = new URL(address);
-            Log.d(TAG, "sendHttpRequest: address = "+address);
-            connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("GET");
-            connection.setConnectTimeout(16000);
-            connection.setRequestProperty("User-Agent", "Mozilla/5.0");
+    public static String sendHttpRequest(final String address) {
+                HttpURLConnection connection = null;
+                StringBuffer response = null;
+                try {
+                    URL url = new URL(address);
+                    Log.d(TAG, "sendHttpRequest: address = " + address);
+                    connection = (HttpURLConnection) url.openConnection();
+                    connection.setRequestMethod("GET");
+                    connection.setConnectTimeout(16000);
+                    connection.setRequestProperty("User-Agent", "Mozilla/5.0");
 
-            if(connection.getResponseCode() == HttpURLConnection.HTTP_OK){
-                InputStream in = connection.getInputStream();
-                BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-                StringBuffer response = new StringBuffer();
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    response.append(line);
+                    if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+                        InputStream in = connection.getInputStream();
+                        BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+                        response = new StringBuffer();
+                        String line;
+                        while ((line = reader.readLine()) != null) {
+                            response.append(line);
+                        }
+                        return response.toString();
+                    } else {
+                        throw new IOException("Network Error - response code: " + connection.getResponseCode());
+                    }
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    return e.getMessage();
+                } finally {
+                    if (connection != null)
+                        connection.disconnect();
                 }
-                return response.toString();
-            }else{
-                throw new IOException("Network Error - response code: " + connection.getResponseCode());
+
             }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            return e.getMessage();
-        } finally {
-            if (connection != null)
-                connection.disconnect();
-        }
-    }
-
-
-
 }

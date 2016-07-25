@@ -27,10 +27,7 @@ public class NewsDatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
-//        switch(oldVersion){
-//            case 1:
-//                db
-//        }
+        db.execSQL("DROP TABLE IF EXISTS table_fav_news");
+        onCreate(db);
     }
 }
