@@ -58,8 +58,9 @@ public class NewsContentActivity extends Activity {
 //        NewsDatabaseOperation db;
         int order = item.getItemId();
         if(order == R.id.collect_news){
-
+            isFavorite = db.isFavorite(news);
             if(isFavorite){
+                Log.d(TAG, "取消收藏");
                 item.setIcon(R.drawable.fav_normal);
                 db.delete_News(news);
             }
